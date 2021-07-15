@@ -20,26 +20,39 @@ public class OrderingSystem {
     public void init() {
 
         try {
-           BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/drinks.txt"));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/drinks.txt"));
             String temp;
-//            while ((temp = bufferedReader.readLine()) != null) {
-//                String[] drink = temp.split("/");
-//                drinks.add(new Drink(drink[0], Float.parseFloat(drink[1])));
-//            }
-//
-//            bufferedReader = new BufferedReader(new FileReader("src/main/resources/desserts.txt"));
-//            while ((temp = bufferedReader.readLine()) != null) {
-//                String[] dessert = temp.split("/");
-//                desserts.add(new Dessert(dessert[0], Float.parseFloat(dessert[1])));
-//            }
-//
-//            bufferedReader = new BufferedReader(new FileReader("src/main/resources/maincourses.txt"));
-//            while ((temp = bufferedReader.readLine()) != null) {
-//                String[] maincourse = temp.split("/");
-//                maincourses.add(new MainCourse(maincourse[0], Float.parseFloat(maincourse[1]), maincourse[2]));
-//            }
+            while ((temp = bufferedReader.readLine()) != null) {
+                String[] drink = temp.split("/");
+                drinks.add(new Drink(drink[0], Float.parseFloat(drink[1])));
+            }
 
-            bufferedReader = new BufferedReader(new FileReader("src/main/resources/cuisine.txt"));
+        } catch (Exception ex) {
+            System.out.println("Błąd wczytywania danych");
+        }
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/desserts.txt"));
+            String temp;
+            while ((temp = bufferedReader.readLine()) != null) {
+                String[] dessert = temp.split("/");
+                desserts.add(new Dessert(dessert[0], Float.parseFloat(dessert[1])));
+            }
+        } catch (Exception ex) {
+            System.out.println("Błąd wczytywania danych");
+        }
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/maincourses.txt"));
+            String temp;
+            while ((temp = bufferedReader.readLine()) != null) {
+                String[] maincourse = temp.split("/");
+                maincourses.add(new MainCourse(maincourse[0], Float.parseFloat(maincourse[1]), maincourse[2]));
+            }
+        } catch (Exception ex) {
+            System.out.println("Błąd wczytywania danych");
+        }
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/cuisine.txt"));
+            String temp;
             while ((temp = bufferedReader.readLine()) != null) {
                 cuisines.add(temp);
             }
@@ -58,15 +71,15 @@ public class OrderingSystem {
                 System.out.println(drink.toString());
             }
             System.out.println(" \n DESERY: \n");
-            for (Dessert dessert : desserts){
+            for (Dessert dessert : desserts) {
                 System.out.println(dessert.toString());
             }
             System.out.println("\n DANIA GŁÓWNE: \n");
-            for(MainCourse mainCourse: maincourses){
+            for (MainCourse mainCourse : maincourses) {
                 System.out.println(mainCourse.toString());
             }
             System.out.println("\n KUCHNIE: ");
-            for(String cuisine: cuisines) {
+            for (String cuisine : cuisines) {
                 System.out.println(cuisine);
             }
 
