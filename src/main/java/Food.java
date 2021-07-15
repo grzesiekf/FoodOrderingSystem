@@ -17,7 +17,7 @@ public abstract class Food {
 
     @Override
     public String toString() {
-        return String.format("%1$-35s",name) + String.format("%15.2f", prise);
+        return String.format("%1$-35s", name) + String.format("%15.2f", prise);
     }
 
 

@@ -1,6 +1,10 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import static java.lang.System.in;
 
 public class OrderingSystem {
 
@@ -8,9 +12,10 @@ public class OrderingSystem {
     private ArrayList<MainCourse> maincourses;
     private ArrayList<Dessert> desserts;
     private ArrayList<String> cuisines;
-
+    Order order;
 
     public OrderingSystem() {
+        order = new Order();
         drinks = new ArrayList<Drink>();
         maincourses = new ArrayList<MainCourse>();
         desserts = new ArrayList<Dessert>();
@@ -64,28 +69,99 @@ public class OrderingSystem {
     }
 
     public void start() {
-        while (true) {
-            System.out.println("\n-----------------------MENU-----------------------");
-            System.out.println(" \n NAPOJE: \n");
-            for (Drink drink : drinks) {
-                System.out.println(drink.toString());
-            }
-            System.out.println(" \n DESERY: \n");
-            for (Dessert dessert : desserts) {
-                System.out.println(dessert.toString());
-            }
-            System.out.println("\n DANIA GŁÓWNE: \n");
-            for (MainCourse mainCourse : maincourses) {
-                System.out.println(mainCourse.toString());
-            }
-            System.out.println("\n KUCHNIE: ");
-            for (String cuisine : cuisines) {
-                System.out.println(cuisine);
+        boolean work = true;
+        String onExit = "5.wyjdź";
+        int choose;
+        Scanner scanner = new Scanner(in);
+
+
+        while (work) {
+            System.out.println("Restauracja XYZ");
+            System.out.println("Elektroniczny system składania zamówień");
+            System.out.println("wprowadź numer 1-5 i zatwierdź klawiszem enter");
+            System.out.println("1 Wyświetl MENU");
+            System.out.println("2 Dodaj lunch");
+            System.out.println("3 Dodaj napój");
+            System.out.println("4 Wyświetl i edytuj zamówienie");
+            System.out.println("5 Zatwierdz zamówienie i wyjdź");
+
+            try {
+                choose = Integer.parseInt(scanner.nextLine());
+            } catch (Exception ex) {
+                choose = 6;
             }
 
-            System.out.println("--------------------------------------------------");
-            break;
+            switch (choose) {
+                case 1:
+                    printMenu();
+                    break;
+                case 2:
+                    chooseLunch();
+                    break;
+                case 3:
+                    chooseDrink();
+                    break;
+                case 4:
+                    printOrEditOrder();
+                    break;
+                case 5:
+                    confirmAndExit();
+                    work = false;
+                    break;
+                default:
+                    System.out.println(" \n BŁĄD - Wprowadź cyfrę z zakresu 1-5 \n ");
+
+            }
         }
     }
+
+    private void printMenu() {
+        System.out.println("\n-----------------------MENU-----------------------");
+        System.out.println(" \n NAPOJE: \n");
+        for (Drink drink : drinks) {
+            System.out.println(drink.toString());
+        }
+        System.out.println(" \n DESERY: \n");
+        for (Dessert dessert : desserts) {
+            System.out.println(dessert.toString());
+        }
+        System.out.println("\n DANIA GŁÓWNE: \n");
+        for (MainCourse mainCourse : maincourses) {
+            System.out.println(mainCourse.toString());
+        }
+        System.out.println("\n-------------------------------------------------- \n");
+
+        System.out.println("Naciśnij ENTER aby kontynuować");
+        try {
+            System.in.read();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    private void chooseLunch() {
+
+    }
+
+    private void chooseDrink() {
+
+    }
+
+    private void printOrEditOrder() {
+        order.printOrder();
+        System.out.println("\n1 Usuń pozycje");
+        System.out.println("2 Wróć");
+
+    }
+
+    private void confirmAndExit() {
+        order.printOrder();
+        System.out.println("Czy potwierdzić zamówienie?");
+        System.out.println("1 TAK");
+        System.out.println("2 NIE");
+
+    }
+
 
 }
