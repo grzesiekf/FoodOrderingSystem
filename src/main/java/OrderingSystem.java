@@ -5,45 +5,45 @@ import java.util.ArrayList;
 public class OrderingSystem {
 
     private ArrayList<Drink> drinks;
-    private ArrayList<MainCourse> maincours;
+    private ArrayList<MainCourse> maincourses;
     private ArrayList<Dessert> desserts;
+    private ArrayList<String> cuisines;
 
 
     public OrderingSystem() {
         drinks = new ArrayList<Drink>();
-        maincours = new ArrayList<MainCourse>();
+        maincourses = new ArrayList<MainCourse>();
         desserts = new ArrayList<Dessert>();
+        cuisines = new ArrayList<String>();
     }
 
     public void init() {
 
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/drinks.txt"));
+           BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/drinks.txt"));
             String temp;
+//            while ((temp = bufferedReader.readLine()) != null) {
+//                String[] drink = temp.split("/");
+//                drinks.add(new Drink(drink[0], Float.parseFloat(drink[1])));
+//            }
+//
+//            bufferedReader = new BufferedReader(new FileReader("src/main/resources/desserts.txt"));
+//            while ((temp = bufferedReader.readLine()) != null) {
+//                String[] dessert = temp.split("/");
+//                desserts.add(new Dessert(dessert[0], Float.parseFloat(dessert[1])));
+//            }
+//
+//            bufferedReader = new BufferedReader(new FileReader("src/main/resources/maincourses.txt"));
+//            while ((temp = bufferedReader.readLine()) != null) {
+//                String[] maincourse = temp.split("/");
+//                maincourses.add(new MainCourse(maincourse[0], Float.parseFloat(maincourse[1]), maincourse[2]));
+//            }
+
+            bufferedReader = new BufferedReader(new FileReader("src/main/resources/cuisine.txt"));
             while ((temp = bufferedReader.readLine()) != null) {
-                String[] drink = temp.split("/");
-                drinks.add(new Drink(drink[0], Float.parseFloat(drink[1])));
+                cuisines.add(temp);
             }
-        } catch (Exception ex) {
-            System.out.println("Błąd wczytywania danych");
-        }
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/desserts.txt"));
-            String temp = null;
-            while ((temp = bufferedReader.readLine()) != null) {
-                String[] dessert = temp.split("/");
-                desserts.add(new Dessert(dessert[0], Float.parseFloat(dessert[1])));
-            }
-        } catch (Exception ex) {
-            System.out.println("Błąd wczytywania danych");
-        }
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/maincourses.txt"));
-            String temp = null;
-            while ((temp = bufferedReader.readLine()) != null) {
-                String[] maincourses = temp.split("/");
-                maincours.add(new MainCourse(maincourses[0], Float.parseFloat(maincourses[1]), Cuisine.valueOf(maincourses[2])));
-            }
+
         } catch (Exception ex) {
             System.out.println("Błąd wczytywania danych");
         }
@@ -62,9 +62,14 @@ public class OrderingSystem {
                 System.out.println(dessert.toString());
             }
             System.out.println("\n DANIA GŁÓWNE: \n");
-            for(MainCourse mainCourse: maincours){
+            for(MainCourse mainCourse: maincourses){
                 System.out.println(mainCourse.toString());
             }
+            System.out.println("\n KUCHNIE: ");
+            for(String cuisine: cuisines) {
+                System.out.println(cuisine);
+            }
+
             System.out.println("--------------------------------------------------");
             break;
         }
