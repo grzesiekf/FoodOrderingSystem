@@ -12,6 +12,7 @@ public class OrderingSystem {
     private ArrayList<MainCourse> maincourses;
     private ArrayList<Dessert> desserts;
     private ArrayList<String> cuisines;
+    Scanner scanner;
     Order order;
 
     public OrderingSystem() {
@@ -20,6 +21,7 @@ public class OrderingSystem {
         maincourses = new ArrayList<MainCourse>();
         desserts = new ArrayList<Dessert>();
         cuisines = new ArrayList<String>();
+        scanner=new Scanner(in);
     }
 
     public void init() {
@@ -71,7 +73,6 @@ public class OrderingSystem {
     public void start() {
         boolean work = true;
         int choose;
-        Scanner scanner = new Scanner(in);
 
 
         while (work) {
@@ -144,17 +145,37 @@ public class OrderingSystem {
     }
 
     private void chooseDrink() {
+        int choose;
         System.out.println("wybierz napój z listy: ");
         for (int i=0;i<drinks.size();i++) {
             System.out.println(i+" "+drinks.get(i).toString());
         }
-
+        System.out.println("-1 wróć do menu głównego");
+        try {
+            choose = Integer.parseInt(scanner.nextLine());
+        } catch (Exception ex) {
+            System.out.println("\n\nPodano błędną wartość\n\n");
+            choose = -1;
+        }
+        if(choose>=0&&choose<drinks.size())
+        {
+            order.addOrder(drinks.get(choose));
+            System.out.println("\nNapój dodano do zamówienia.");
+            System.out.println("\nAktualny stan zamówienia: ");
+            order.printOrder();
+        }
+        else System.out.println("Podano liczbę z poza zakresu");
+        System.out.println("Naciśnij ENTER aby kontynuować");
+        try {
+            System.in.read();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
     }
 
     private void printOrEditOrder() {
         int choose;
-        Scanner scanner = new Scanner(in);
         order.printOrder();
         System.out.println("\n1 Usuń pozycje");
         System.out.println("2 Wróć");
@@ -168,7 +189,7 @@ public class OrderingSystem {
             try {
                 choose = Integer.parseInt(scanner.nextLine());
             } catch (Exception ex) {
-                System.out.println("Podano wartość z poza zakresu");
+                System.out.println("\n\nPodano błędną wartość\n\n");
                 choose = -1;
             }
 
@@ -177,18 +198,11 @@ public class OrderingSystem {
 
 
         }
-        System.out.println("Naciśnij ENTER aby kontynuować");
-        try {
-            System.in.read();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+
     }
 
     private boolean confirmAndExit() {
         int choose;
-        Scanner scanner = new Scanner(in);
-
         order.printOrder();
         System.out.println("\nCzy potwierdzić zamówienie?");
         System.out.println("1 TAK");
