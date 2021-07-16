@@ -24,6 +24,12 @@ public class Order {
     }
 
     public void printOrder() {
+        System.out.println("Twoje zamówienie: ");
+        for(int i=0;i<order.size();i++)
+        {
+            System.out.println(i+" "+order.get(i).toString());
+        }
+        System.out.println("\n Kwota do zapłaty: "+ bill);
 
     }
 

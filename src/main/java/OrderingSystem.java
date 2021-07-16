@@ -70,7 +70,6 @@ public class OrderingSystem {
 
     public void start() {
         boolean work = true;
-        String onExit = "5.wyjdź";
         int choose;
         Scanner scanner = new Scanner(in);
 
@@ -105,8 +104,7 @@ public class OrderingSystem {
                     printOrEditOrder();
                     break;
                 case 5:
-                    confirmAndExit();
-                    work = false;
+                    work = confirmAndExit();
                     break;
                 default:
                     System.out.println(" \n BŁĄD - Wprowadź cyfrę z zakresu 1-5 \n ");
@@ -142,25 +140,75 @@ public class OrderingSystem {
 
     private void chooseLunch() {
 
+
     }
 
     private void chooseDrink() {
+        System.out.println("wybierz napój z listy: ");
+        for (int i=0;i<drinks.size();i++) {
+            System.out.println(i+" "+drinks.get(i).toString());
+        }
+
 
     }
 
     private void printOrEditOrder() {
+        int choose;
+        Scanner scanner = new Scanner(in);
         order.printOrder();
         System.out.println("\n1 Usuń pozycje");
         System.out.println("2 Wróć");
+        try {
+            choose = Integer.parseInt(scanner.nextLine());
+        } catch (Exception ex) {
+            choose = 2;
+        }
+        if (choose==1) {
+            System.out.println("Podaj numer pozycji do usunięcia: ");
+            try {
+                choose = Integer.parseInt(scanner.nextLine());
+            } catch (Exception ex) {
+                System.out.println("Podano wartość z poza zakresu");
+                choose = -1;
+            }
 
+
+
+
+
+        }
+        System.out.println("Naciśnij ENTER aby kontynuować");
+        try {
+            System.in.read();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
-    private void confirmAndExit() {
+    private boolean confirmAndExit() {
+        int choose;
+        Scanner scanner = new Scanner(in);
+
         order.printOrder();
-        System.out.println("Czy potwierdzić zamówienie?");
+        System.out.println("\nCzy potwierdzić zamówienie?");
         System.out.println("1 TAK");
         System.out.println("2 NIE");
-
+        try {
+            choose = Integer.parseInt(scanner.nextLine());
+        } catch (Exception ex) {
+            choose = 2;
+        }
+        if(choose==1) {
+            System.out.println("Twoje zamówienie zostało przekazane do realizacji. \nDziękujemy i zapraszamy ponownie.");
+            System.out.println("\n\nNaciśnij ENTER aby zakończyć");
+            try {
+                System.in.read();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            return false;
+        }
+        else return true;
     }
 
 
