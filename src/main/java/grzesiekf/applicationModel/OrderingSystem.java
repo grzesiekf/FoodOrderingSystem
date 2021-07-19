@@ -1,3 +1,10 @@
+package grzesiekf.applicationModel;
+
+import grzesiekf.eatables.Additives;
+import grzesiekf.eatables.Dessert;
+import grzesiekf.eatables.Drink;
+import grzesiekf.eatables.MainCourse;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

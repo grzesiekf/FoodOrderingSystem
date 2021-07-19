@@ -1,3 +1,5 @@
+package grzesiekf.eatables;
+
 public class MainCourse extends Food {
     public final String cuisine;
 

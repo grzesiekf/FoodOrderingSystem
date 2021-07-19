@@ -1,3 +1,5 @@
+package grzesiekf.eatables;
+
 public abstract class Food {
     private final String name;
     private final float prise;

@@ -1,3 +1,7 @@
+package grzesiekf.applicationModel;
+
+import grzesiekf.eatables.Food;
+
 import java.util.ArrayList;
 
 public class Order {
@@ -19,7 +23,7 @@ public class Order {
         order.remove(index);
     }
 
-    public float getSize() {
+    public int getSize() {
         return order.size();
     }
 
