@@ -14,13 +14,13 @@ public class Order {
         bill = bill + food.getPrise();
     }
 
-    public void deleteOrder(Food food) {
-        order.remove(food);
-        bill = bill - food.getPrise();
+    public void deleteOrder(int index) {
+        bill = bill - order.get(index).getPrise();
+        order.remove(index);
     }
 
-    public float getBill() {
-        return bill;
+    public float getSize() {
+        return order.size();
     }
 
     public void printOrder() {

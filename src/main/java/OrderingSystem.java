@@ -169,13 +169,12 @@ public class OrderingSystem {
 
     }
 
-    private void chooseMainCourse(String cuisine)
-    {
+    private void chooseMainCourse(String cuisine) {
         int choose;
         System.out.println("wybierz danie z listy:");
         for (int i = 0; i < maincourses.size(); i++) {
-            if(maincourses.get(i).cuisine.equals(cuisine))
-            System.out.println(i + " " + maincourses.get(i).toString());
+            if (maincourses.get(i).cuisine.equals(cuisine))
+                System.out.println(i + " " + maincourses.get(i).toString());
         }
         System.out.println("-1 Pomiń");
         try {
@@ -191,8 +190,7 @@ public class OrderingSystem {
 
     }
 
-    private void  chooseDessert()
-    {
+    private void chooseDessert() {
         int choose;
         System.out.println("wybierz deser z listy:");
         for (int i = 0; i < desserts.size(); i++) {
@@ -226,6 +224,31 @@ public class OrderingSystem {
         }
         if (choose >= 0 && choose < drinks.size()) {
             order.addOrder(drinks.get(choose));
+            System.out.println("Czy dodać cytrynę bądź kostki lodu do napoju?");
+            System.out.println("0 Pomiń");
+            System.out.println("1 Dodaj cytrynę");
+            System.out.println("2 Dodaj kostki lodu");
+            System.out.println("3 Dodaj cytrynę i kostki lodu");
+            try {
+                choose = Integer.parseInt(scanner.nextLine());
+            } catch (Exception ex) {
+                System.out.println("\n\nPodano błędną wartość\n\n");
+                choose = 0;
+            }
+            switch (choose) {
+                case 0:
+                    break;
+                case 1:
+                    order.addOrder(new Additives("CYTRYNA", 0.5f));
+                    break;
+                case 2:
+                    order.addOrder(new Additives("KOSTKI LODU", 0.5f));
+                    break;
+                case 3:
+                    order.addOrder(new Additives("CYTRYNA", 0.5f));
+                    order.addOrder(new Additives("KOSTKI LODU", 0.5f));
+                    break;
+            }
             System.out.println("\nNapój dodano do zamówienia.");
             System.out.println("\nAktualny stan zamówienia: ");
             order.printOrder();
@@ -241,26 +264,32 @@ public class OrderingSystem {
 
     private void printOrEditOrder() {
         int choose;
-        order.printOrder();
-        System.out.println("\n1 Usuń pozycje");
-        System.out.println("2 Wróć");
-        try {
-            choose = Integer.parseInt(scanner.nextLine());
-        } catch (Exception ex) {
-            choose = 2;
-        }
-        if (choose == 1) {
-            System.out.println("Podaj numer pozycji do usunięcia: ");
+        boolean work = true;
+        while (work) {
+            order.printOrder();
+            System.out.println("\n1 Usuń pozycje");
+            System.out.println("2 Wróć");
             try {
                 choose = Integer.parseInt(scanner.nextLine());
             } catch (Exception ex) {
-                System.out.println("\n\nPodano błędną wartość\n\n");
-                choose = -1;
+                choose = 2;
             }
+            if (choose == 1) {
+                System.out.println("Podaj numer pozycji do usunięcia: ");
+                try {
+                    choose = Integer.parseInt(scanner.nextLine());
+                } catch (Exception ex) {
+                    System.out.println("\n\nPodano błędną wartość\n\n");
+                    choose = -1;
+                }
+                if (choose >= 0 && choose < order.getSize()) {
+                    order.deleteOrder(choose);
+                    System.out.println("\nUsunięto wskazaną pozycje\n");
+                }
 
 
+            } else work = false;
         }
-
     }
 
     private boolean confirmAndExit() {
